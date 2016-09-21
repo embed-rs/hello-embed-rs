@@ -1,0 +1,16 @@
+[package]
+authors = ["Marc Brinkmann <git@marcbrinkmann.de>"]
+name = "hello-embed-rs"
+version = "0.1.0"
+
+[dependencies]
+
+[dependencies.embedded]
+optional = false
+path = "../embedded-rs/"
+
+[profile.release]
+panic = "abort"
+
+[profile.debug]
+panic = "abort"
