@@ -59,24 +59,4 @@ fn main() {
         p13.set(false);
         delay(INITIAL_CPU_FREQ);
     }
-
-    // setup gpio pins 13 and 14
-    // gpio_setup!(gpio_g.split(), {
-    //     pin_13 = output(pin_13);
-    //     pin_14 = output(pin_14);
-    // });
-
-    // loop {
-    //     // turn on 13,14
-    //     pin_13.set_output(High);
-    //     stt.wait_ticks(INITIAL_CPU_FREQ as u32);
-    //     pin_14.set_output(High);
-    //     stt.wait_ticks(INITIAL_CPU_FREQ as u32);
-
-    //     // turn off 13,14
-    //     pin_13.set_output(Low);
-    //     stt.wait_ticks(INITIAL_CPU_FREQ as u32);
-    //     pin_14.set_output(Low);
-    //     stt.wait_ticks(INITIAL_CPU_FREQ as u32);
-    // }
 }
