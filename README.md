@@ -1,6 +1,8 @@
 Steps to create
 ===============
 
+To be written: Actual README that explains how to build
+
 1. cargo new --bin
 2. no_std, no_main
 3. macro_use + crate embedded
