@@ -6,17 +6,10 @@ extern crate embedded;
 
 use embedded::components::gpio;
 use embedded::base::volatile::{Volatile, VolatileStruct};
-use embedded::components::gpio::GpioController;
 use embedded::util::delay;
-
-// on AHB1, GPIOG is at 0x4002 1800 - 0x4002 1BFF (DM00071990, pg. 86)
-const AHB1_GPIOG_BASE: u32 = 0x4002_1800;
 
 // on AHB1, RCC is at 0x4002 3800 - 0x4002 3BFF RCC (DM00071990, pg. 86)
 const AHB1_RCC_BASE: u32 = 0x4002_3800;
-
-// base address of systick timer (guide pg. 313ff)
-const SYSTICK_BASE: u32 = 0xE000E010;
 
 // DM00031020.pdf, pg 180
 const RCC_AHB1ENR: u32 = AHB1_RCC_BASE + 0x30;
@@ -33,20 +26,17 @@ struct SingleItemReg<T> {
 
 impl<T> VolatileStruct for SingleItemReg<T> {}
 
-fn main() {
-
+fn main(hw: Hardware) {
     let mut rcc_ahb1enr =
         unsafe { SingleItemReg::from_ptr(RCC_AHB1ENR as *mut SingleItemReg<u32>) };
-    let mut gpio_g = unsafe {
-        gpio::GpioBank::<gpio::PortG>::from_ptr(AHB1_GPIOG_BASE as *mut gpio::GpioBank<gpio::PortG>)
-    };
+    let Hardware { gpio_g, .. } = hw;
 
     // enable clock on gpio register
     rcc_ahb1enr.reg |= RCC_AHB1ENR_GPIOG_EN;
 
     let (mut gpio_ctrl, gpio_pins) = gpio_g.split();
 
-    let gpio::GpioPins { pin_13, pin_14, .. } = gpio_pins;
+    let gpio::GpioPins { pin_13, .. } = gpio_pins;
 
     let mut p13 = gpio_ctrl.to_write(pin_13,
                                      gpio::Type::PushPull,
