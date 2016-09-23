@@ -9,7 +9,7 @@ ${BIN}: ${ELF}
 	${OBJCOPY} -Obinary $< $@
 
 $(ELF):
-	xargo build --release
+	xargo build --release --target=thumbv7em-none-eabi
 
 upload: ${BIN}
 	st-flash --reset write $< 0x8000000
