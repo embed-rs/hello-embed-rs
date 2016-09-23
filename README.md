@@ -2,7 +2,7 @@ Steps to create
 ===============
 
 1. cargo new --bin
-2. no_std
+2. no_std, no_main
 3. macro_use + crate embedded
 4. run board! macro
 5. UNDECIDED: panic_fmt? (now in lib)
